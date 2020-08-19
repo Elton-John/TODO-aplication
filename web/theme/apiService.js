@@ -31,7 +31,25 @@ class ApiService {
             })
     }
 
-
+    saveTask(task, successCallback, errorCallback) {
+        fetch(this.url + '/api/tasks', {
+            headers: {
+                "Authorization": this.apikey,
+                "Content-Type": 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(task)
+        }).then(function (response) {
+            return response.json();
+        })
+            .then(function (json) {
+                const newTask = createTaskFromResponseData(json.data);
+                successCallback(newTask);
+            })
+            .catch(function (error) {
+                errorCallback(error);
+            })
+    }
 }
 
 function createTaskFromResponseData(data) {
