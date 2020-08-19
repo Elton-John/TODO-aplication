@@ -1,4 +1,4 @@
-console.log("operations");
+console.log("operation");
 
 class Operation {
     constructor( description, timeSpent){
