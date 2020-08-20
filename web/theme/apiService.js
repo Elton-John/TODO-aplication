@@ -50,13 +50,31 @@ class ApiService {
                 errorCallback(error);
             })
     }
-}
 
-function createTaskFromResponseData(data) {
-    const task = new Task(data.title, data.description, data.status);
-    if (data.id) {
-        task.id = data.id;
+    deleteTask(taskId, successCallback, errorCallback) {
+        fetch(this.url + '/api/tasks/' + taskId, {
+            method: "DELETE",
+            headers: {
+                "Authorization": this.apikey
+            },
+        }).then(function (response) {
+           return response.json();
+        }).then(function (json) {
+            console.log("z delete Task", json.data)
+successCallback(taskId);
+        })
+            .catch(function (error) {
+            errorCallback(error);
+        })
+
+    }}
+
+    function    createTaskFromResponseData(data) {
+        const task = new Task(data.title, data.description, data.status);
+        if (data.id) {
+            task.id = data.id;
+        }
+        return task;
     }
-    return task;
-}
+
 
