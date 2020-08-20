@@ -51,7 +51,7 @@ class ApiService {
             })
     }
 
-    deleteTask(taskId, successCallback, errorCallback) {
+    deleteTaskById(taskId, successCallback, errorCallback) {
         fetch(this.url + '/api/tasks/' + taskId, {
             method: "DELETE",
             headers: {
