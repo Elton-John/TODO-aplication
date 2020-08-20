@@ -58,23 +58,42 @@ class ApiService {
                 "Authorization": this.apikey
             },
         }).then(function (response) {
-           return response.json();
+            return response.json();
         }).then(function (json) {
             console.log("z delete Task", json.data)
-successCallback(taskId);
+            successCallback(taskId);
         })
             .catch(function (error) {
+                errorCallback(error);
+            })
+
+    }
+
+
+
+    getTaskWithOperations(taskId, successCallback, errorCallback) {
+        fetch(this.url + "/api/tasks/" + taskId + "/operations", {
+            method: "GET",
+            headers: {
+                "Authorization": this.apikey
+            }
+        }).then(function (response) {
+            return response.json();
+        }).then(function (json) {
+/////
+            successCallback(json);
+        }).catch(function (error) {
             errorCallback(error);
         })
-
-    }}
-
-    function    createTaskFromResponseData(data) {
-        const task = new Task(data.title, data.description, data.status);
-        if (data.id) {
-            task.id = data.id;
-        }
-        return task;
     }
+}
+
+function createTaskFromResponseData(data) {
+    const task = new Task(data.title, data.description, data.status);
+    if (data.id) {
+        task.id = data.id;
+    }
+    return task;
+}
 
 
