@@ -70,7 +70,6 @@ class ApiService {
     }
 
 
-
     getTaskWithOperations(taskId, successCallback, errorCallback) {
         fetch(this.url + "/api/tasks/" + taskId + "/operations", {
             method: "GET",
@@ -86,7 +85,32 @@ class ApiService {
             errorCallback(error);
         })
     }
+
+   updateTask(taskId, task, successCallback, errorCallback) {
+        fetch(this.url + "/api/tasks/" + taskId, {
+            method: "PUT",
+            headers: {
+                "Authorization": this.apikey,
+                "Content-type": "application/json; charset=UTF-8"
+            },
+            body: JSON.stringify(task)
+        }).then(function (response) {
+            return response.json();
+        }).then(function (json) {
+/////
+            successCallback(json);
+        }).catch(function (error) {
+            errorCallback(error);
+        })
+    }
 }
+//
+// /api/
+// tasks /
+// :
+// id
+
+
 
 function createTaskFromResponseData(data) {
     const task = new Task(data.title, data.description, data.status);

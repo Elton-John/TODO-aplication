@@ -27,10 +27,23 @@ console.log("-------------------");
 // }, function (error) {
 // console.error(error)
 // });
-
+//
 const idOfTaskWithOperations = "4a1c5534-ee54-4742-b53c-5396e28693f2";
 apiService.getTaskWithOperations(idOfTaskWithOperations, function (json) {
+    console.log(json);
+}, function (error) {
+    console.error(error)
+});
+
+const taskToUpdate = {
+    id: "52f4d6c0-7250-481d-8611-e6e0b1ec4a67",
+    title: "Learn more about HTTP methods",
+    description: "some new description",
+    status: "open"
+};
+
+apiService.updateTask("52f4d6c0-7250-481d-8611-e6e0b1ec4a67",taskToUpdate, function (json) {
 console.log(json);
 }, function (error) {
-console.error(error)
+console.log(error);
 });
